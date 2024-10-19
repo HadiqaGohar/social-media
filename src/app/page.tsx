@@ -171,7 +171,7 @@ function Home() {
       <div className='bg-indigo-600 p-4 rounded-md shadow-md text-white flex items-center justify-between lg:mx-8 xl:mx-10 2xl:mx-16'>
         <div className="flex items-center">
           <PiNotificationLight size={24}  />
-          <h1 className="text-xl font-bold">Home</h1>
+          <h1 className="text-xl font-bold ml-4">Home</h1>
         </div>
         <TbGridDots size={24} />
       </div>

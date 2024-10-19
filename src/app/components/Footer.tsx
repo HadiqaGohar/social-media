@@ -1,24 +1,11 @@
 "use client";
 import Link from 'next/link';
-import React, { useState, useEffect } from 'react';
 import { FiHeart, FiSearch } from "react-icons/fi";
 import { GoHomeFill } from "react-icons/go";
-import { IoMdAdd } from "react-icons/io";
-import AddPostModal from './AddPostModal'; // Import the modal component
 import { FaUserCircle } from 'react-icons/fa';
 
 function Footer() {
-  const [userAvatar, setUserAvatar] = useState("");
-  const [showModal, setShowModal] = useState(false); // State to manage modal visibility
-
-  useEffect(() => {
-    const avatar = localStorage.getItem("userAvatar") || ""; 
-    setUserAvatar(avatar);
-  }, []);
-
-  const handleAddPostClick = () => {
-    setShowModal(true); // Show the modal when the add icon is clicked
-  };
+ 
 
   return (
     <>
@@ -64,8 +51,6 @@ function Footer() {
           </ul>
         </nav>
       </div>
-      {/* Add Post Modal */}
-      {showModal && <AddPostModal onClose={() => setShowModal(false)} onAddPost={(post) => console.log(post)} />} {/* Render the modal */}
     </>
   );
 }

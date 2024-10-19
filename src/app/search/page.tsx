@@ -41,7 +41,7 @@ const SearchProduct = () => {
       <div className='mx-4 bg-indigo-600 p-4 rounded-md shadow-md text-white flex items-center justify-between lg:mx-8 xl:mx-10 2xl:mx-16'>
         <div className="flex items-center">
           <PiNotificationLight size={24} className="mr-2" />
-          <h1 className="text-lg lg:text-xl font-bold mr-2">Search</h1>
+          <h1 className="text-lg lg:text-xl font-bold mr-2 ml-4">Search</h1>
         </div>
 
         <div className="flex items-center space-x-2 bg-white p-1 rounded-md mr-2">

@@ -1,0 +1,127 @@
+[1mdiff --git a/package-lock.json b/package-lock.json[m
+[1mindex 60c268d..4bf4c39 100644[m
+[1m--- a/package-lock.json[m
+[1m+++ b/package-lock.json[m
+[36m@@ -11,6 +11,7 @@[m
+         "next": "14.2.15",[m
+         "react": "^18",[m
+         "react-dom": "^18",[m
+[32m+[m[32m        "react-icons": "^5.3.0",[m
+         "swiper": "^11.1.14"[m
+       },[m
+       "devDependencies": {[m
+[36m@@ -3838,6 +3839,14 @@[m
+         "react": "^18.3.1"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/react-icons": {[m
+[32m+[m[32m      "version": "5.3.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/react-icons/-/react-icons-5.3.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-DnUk8aFbTyQPSkCfF8dbX6kQjXA9DktMeJqfjrg6cK9vwQVMxmcA3BfP4QoiztVmEHtwlTgLFsPuH2NskKT6eg==",[m
+[32m+[m[32m      "peerDependencies": {[m
+[32m+[m[32m        "react": "*"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/react-is": {[m
+       "version": "16.13.1",[m
+       "resolved": "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz",[m
+[1mdiff --git a/package.json b/package.json[m
+[1mindex a09c042..2f9cce3 100644[m
+[1m--- a/package.json[m
+[1m+++ b/package.json[m
+[36m@@ -12,6 +12,7 @@[m
+     "next": "14.2.15",[m
+     "react": "^18",[m
+     "react-dom": "^18",[m
+[32m+[m[32m    "react-icons": "^5.3.0",[m
+     "swiper": "^11.1.14"[m
+   },[m
+   "devDependencies": {[m
+[1mdiff --git a/src/app/components/Footer.tsx b/src/app/components/Footer.tsx[m
+[1mindex 9578ab5..04fd0f5 100644[m
+[1m--- a/src/app/components/Footer.tsx[m
+[1m+++ b/src/app/components/Footer.tsx[m
+[36m@@ -1,24 +1,11 @@[m
+ "use client";[m
+ import Link from 'next/link';[m
+[31m-import React, { useState, useEffect } from 'react';[m
+ import { FiHeart, FiSearch } from "react-icons/fi";[m
+ import { GoHomeFill } from "react-icons/go";[m
+[31m-import { IoMdAdd } from "react-icons/io";[m
+[31m-import AddPostModal from './AddPostModal'; // Import the modal component[m
+ import { FaUserCircle } from 'react-icons/fa';[m
+ [m
+ function Footer() {[m
+[31m-  const [userAvatar, setUserAvatar] = useState("");[m
+[31m-  const [showModal, setShowModal] = useState(false); // State to manage modal visibility[m
+[31m-[m
+[31m-  useEffect(() => {[m
+[31m-    const avatar = localStorage.getItem("userAvatar") || ""; [m
+[31m-    setUserAvatar(avatar);[m
+[31m-  }, []);[m
+[31m-[m
+[31m-  const handleAddPostClick = () => {[m
+[31m-    setShowModal(true); // Show the modal when the add icon is clicked[m
+[31m-  };[m
+[32m+[m[41m [m
+ [m
+   return ([m
+     <>[m
+[36m@@ -64,8 +51,6 @@[m [mfunction Footer() {[m
+           </ul>[m
+         </nav>[m
+       </div>[m
+[31m-      {/* Add Post Modal */}[m
+[31m-      {showModal && <AddPostModal onClose={() => setShowModal(false)} onAddPost={(post) => console.log(post)} />} {/* Render the modal */}[m
+     </>[m
+   );[m
+ }[m
+[1mdiff --git a/src/app/layout.tsx b/src/app/layout.tsx[m
+[1mindex 6918c39..6c60988 100644[m
+[1m--- a/src/app/layout.tsx[m
+[1m+++ b/src/app/layout.tsx[m
+[36m@@ -1,5 +1,4 @@[m
+ import type { Metadata } from "next";[m
+[31m-import localFont from "next/font/local";[m
+ import "./globals.css";[m
+ import Footer from "./components/Footer";[m
+ [m
+[1mdiff --git a/src/app/notification/page.tsx b/src/app/notification/page.tsx[m
+[1mindex 52d9516..1d1996e 100644[m
+[1m--- a/src/app/notification/page.tsx[m
+[1m+++ b/src/app/notification/page.tsx[m
+[36m@@ -36,7 +36,7 @@[m [mfunction Notification() {[m
+       <div className="bg-indigo-600 p-4 rounded-md shadow-md text-white flex items-center justify-between lg:mx-8 xl:mx-10 2xl:mx-16">[m
+         <div className="flex items-center">[m
+           <PiNotificationLight size={24}  />[m
+[31m-          <h1 className="text-xl font-bold">Notifications</h1>[m
+[32m+[m[32m          <h1 className="text-xl font-bold ml-4">Notifications</h1>[m
+         </div>[m
+         <TbGridDots size={24} />[m
+       </div>[m
+[1mdiff --git a/src/app/page.tsx b/src/app/page.tsx[m
+[1mindex fe535c7..e05fa64 100644[m
+[1m--- a/src/app/page.tsx[m
+[1m+++ b/src/app/page.tsx[m
+[36m@@ -171,7 +171,7 @@[m [mfunction Home() {[m
+       <div className='bg-indigo-600 p-4 rounded-md shadow-md text-white flex items-center justify-between lg:mx-8 xl:mx-10 2xl:mx-16'>[m
+         <div className="flex items-center">[m
+           <PiNotificationLight size={24}  />[m
+[31m-          <h1 className="text-xl font-bold">Home</h1>[m
+[32m+[m[32m          <h1 className="text-xl font-bold ml-4">Home</h1>[m
+         </div>[m
+         <TbGridDots size={24} />[m
+       </div>[m
+[1mdiff --git a/src/app/search/page.tsx b/src/app/search/page.tsx[m
+[1mindex d45fa87..cc49703 100644[m
+[1m--- a/src/app/search/page.tsx[m
+[1m+++ b/src/app/search/page.tsx[m
+[36m@@ -41,7 +41,7 @@[m [mconst SearchProduct = () => {[m
+       <div className='mx-4 bg-indigo-600 p-4 rounded-md shadow-md text-white flex items-center justify-between lg:mx-8 xl:mx-10 2xl:mx-16'>[m
+         <div className="flex items-center">[m
+           <PiNotificationLight size={24} className="mr-2" />[m
+[31m-          <h1 className="text-lg lg:text-xl font-bold mr-2">Search</h1>[m
+[32m+[m[32m          <h1 className="text-lg lg:text-xl font-bold mr-2 ml-4">Search</h1>[m
+         </div>[m
+ [m
+         <div className="flex items-center space-x-2 bg-white p-1 rounded-md mr-2">[m
