@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { PiNotificationLight } from 'react-icons/pi';
 import { TbGridDots } from 'react-icons/tb';
-
+import Image from 'next/image';
 function Notification() {
   const [followStatus, setFollowStatus] = useState({
     emilie: 'follow',
@@ -49,10 +49,12 @@ function Notification() {
           {/* Notification for Emilie */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center">
-              <img
+              <Image
                 src="https://img.freepik.com/free-photo/studio-close-up-portrait-young-fresh-blonde-woman-brown-straw-poncho-wool-black-trendy-hat-round-glasses-looking-camera-green-leather-had-bag_273443-1121.jpg" // Add Emilie's image URL here
                 alt="Emilie"
                 className="h-[30px] w-[30px] rounded-full object-cover mr-2"
+                width={30}
+                height={30}
               />
               <div>
                 <h1 className="font-medium">Emilie <span className="text-sm">started</span></h1>
@@ -75,9 +77,11 @@ function Notification() {
           {/* Notification for John */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center">
-              <img
+              <Image
                 src="https://media.istockphoto.com/id/1283231614/photo/portrait-of-happy-asian-handsome-young-man-in-fashionable-clothing.jpg?s=612x612&w=0&k=20&c=92SgRHJhWP2NUkzxtBqag43yRkYLjeFvg4_PcPYLynE=" // Add John's image URL here
                 alt="John"
+                width={30}
+                height={30}
                 className="h-[30px] w-[30px] rounded-full object-cover mr-2"
               />
               <div>
@@ -101,8 +105,10 @@ function Notification() {
           {/* Notification for Sarah */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center">
-              <img
+              <Image
                 src="https://i.pinimg.com/736x/ac/57/2d/ac572ded8c70bea6559db0c77263063c.jpg" // Add Sarah's image URL here
+                width={30}
+                height={30}
                 alt="Sarah"
                 className="h-[30px] w-[30px] rounded-full object-cover mr-2"
               />
@@ -127,7 +133,9 @@ function Notification() {
           {/* Notification for Alice */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center">
-              <img
+              <Image
+              width={30}
+              height={30}
                 src="https://i1.pickpik.com/photos/629/148/853/stylish-boy-fashion-man-s-fashion-blurry-background-cb851d2a32353520b5de13b5076882af.jpg" // Add Alice's image URL here
                 alt="Alice"
                 className="h-[30px] w-[30px] rounded-full object-cover mr-2"
@@ -153,7 +161,9 @@ function Notification() {
           {/* Notification for Mark */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center">
-              <img
+              <Image
+              width={30}
+              height={30}
                 src="https://as1.ftcdn.net/v2/jpg/02/16/78/48/1000_F_216784807_MsExAAUQANJ8yqJMVaILoe8mROgzVEDh.jpg" // Add Mark's image URL here
                 alt="Mark"
                 className="h-[30px] w-[30px] rounded-full object-cover mr-2"
@@ -183,7 +193,9 @@ function Notification() {
           {/* Example Notification for Older Interaction */}
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center">
-              <img
+              <Image
+              width={30}
+              height={30}
                 src="https://img.freepik.com/premium-photo/stylish-young-man-black-mock-up-clothes-with-cap-hoodie-protective-covid-mask-walks-city_338491-12401.jpg" // Add another user's image URL here
                 alt="User"
                 className="h-[30px] w-[30px] rounded-full object-cover mr-2"
@@ -205,7 +217,9 @@ function Notification() {
           {/* Notification for Sophia */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center">
-              <img
+              <Image
+              width={30}
+              height={30}
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgRuQGdf6jhbEmUYoOMjDeMBfh7GHJLwLhBw&s" // Add Emilie's image URL here
                 alt="Sophia"
                 className="h-[30px] w-[30px] rounded-full object-cover mr-2"
@@ -231,7 +245,9 @@ function Notification() {
           {/* Notification for Ben */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center">
-              <img
+              <Image
+              width={30}
+              height={30}
                 src="https://www.styledbysally.com.au/wp-content/uploads/2017/07/349712f1f849f6ecae741e2282a77a40-guy-fashion-style-fashion.jpg" // Add John's image URL here
                 alt="ben"
                 className="h-[30px] w-[30px] rounded-full object-cover mr-2"
@@ -257,7 +273,9 @@ function Notification() {
           {/* Notification for kiara */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center">
-              <img
+              <Image
+              width={30}
+              height={30}
                 src="https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?cs=srgb&dl=pexels-olenagoldman-1021693.jpg&fm=jpg" // Add Sarah's image URL here
                 alt="kiara"
                 className="h-[30px] w-[30px] rounded-full object-cover mr-2"
@@ -283,7 +301,9 @@ function Notification() {
           {/* Notification for grace */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center">
-              <img
+              <Image
+              width={30}
+              height={30}
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTO4DOLpdsXTFgH43wUB_yhwXQRKzfpEv0KFQ&s" // Add Alice's image URL here
                 alt="grace"
                 className="h-[30px] w-[30px] rounded-full object-cover mr-2"
@@ -309,7 +329,9 @@ function Notification() {
           {/* Notification for isabella */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center">
-              <img
+              <Image
+              width={30}
+              height={30}
                 src="https://thumbs.dreamstime.com/b/beauty-brunette-model-girl-perfect-makeup-trendy-accessories-fashion-wear-88929334.jpg" // Add Mark's image URL here
                 alt="isabella"
                 className="h-[30px] w-[30px] rounded-full object-cover mr-2"

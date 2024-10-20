@@ -2,14 +2,4 @@
 @tailwind components;
 @tailwind utilities;
 
-.animated-bg {
-  background: linear-gradient(270deg, #4CAF50, #2196F3, #9820c4);
-  background-size: 600% 600%;
-  animation: bgAnimation 10s ease infinite;
-}
 
-@keyframes bgAnimation {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
