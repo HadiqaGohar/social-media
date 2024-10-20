@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { PiNotificationLight } from "react-icons/pi";
 import { TbGridDots, TbSearch } from "react-icons/tb";
+import Image from 'next/image'; // Import the Image component from Next.js
 
 // Sample product data with image URLs and names
 const products = [
@@ -10,7 +11,7 @@ const products = [
   { id: 3, name: "Forest Garden Sunset ", imageUrl: "https://img.freepik.com/free-photo/beautiful-japanese-forest-scene_23-2151498109.jpg" },
   { id: 4, name: "Desert Sun Soil", imageUrl: "https://t4.ftcdn.net/jpg/02/78/52/07/360_F_278520748_G9sRQdSValj67Hihmt4r3ji6SLRT3ViA.jpg" },
   { id: 5, name: "Ocean Water Sea", imageUrl: "https://img.freepik.com/free-photo/beautiful-nature-landscape-with-black-sandy-beach-ocean_23-2151380422.jpg" },
-  { id: 6, name: "Nature", imageUrl: "https://static.vecteezy.com/system/resources/previews/032/250/860/large_2x/beautiful-nature-wallpaper-nature-wallpaper-nature-wallpaper-nature-wallpaper-nature-wallpaper-nature-wallpaper-ai-generated-free-photo.jpg" },
+  { id: 6, name: "Nature rainbow", imageUrl: "https://res.cloudinary.com/jerrick/image/upload/v1685286268/64736d7cfa6e08001df5c068.jpg" },
   { id: 7, name: "Mountain River", imageUrl: "https://vastphotos.com/files/uploads/photos/10556/lake-landscape-photo-m.jpg?v=20230830084557" },
   { id: 8, name: "butterfly Nature ", imageUrl: "https://images.unsplash.com/photo-1667822348825-f2149f3a2f60?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8YmVhdXRpZnVsJTIwYnV0dGVyZmx5fGVufDB8fDB8fHww" },
   { id: 9, name: "Night Sky Star", imageUrl: "https://www.cpr.org/cdn-cgi/image/width=3840,quality=75,format=auto/https://wp-cpr.s3.amazonaws.com/uploads/2022/05/Dark-Sky-at-Sand-dunes.jpg" },
@@ -68,10 +69,12 @@ const SearchProduct = () => {
         {filteredProducts.length > 0 ? (
           filteredProducts.map((product) => (
             <div key={product.id} className="border p-4 rounded">
-              <img
+              <Image
                 src={product.imageUrl}
                 alt={product.name}
-                className="w-full h-[300px] object-cover"
+                width={400}  // Set an appropriate width
+                height={300} // Set an appropriate height
+                className="w-full h-[300px] object-cover" // This ensures the image is styled correctly
               />
               
             </div>

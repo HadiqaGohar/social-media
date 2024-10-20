@@ -1,49 +1,56 @@
-'use client'
+'use client';
 import React, { useState } from 'react';
 import { PiNotificationLight } from 'react-icons/pi';
 import { TbGridDots } from 'react-icons/tb';
-import { FaPlus, FaEllipsisH } from 'react-icons/fa'; // Added Edit and Save icons
+import { FaPlus, FaEllipsisH } from 'react-icons/fa'; // Icons for edit, save, etc.
+
+interface Post {
+    type: string;
+    content: string;
+    author: string;
+    profileImageUrl: string;
+    timeAgo: string;
+}
 
 function Profile() {
-    // State for profile editing
+    // Profile state
     const [isEditing, setIsEditing] = useState(false);
     const [username, setUsername] = useState("User Name");
-    const [profileImage, setProfileImage] = useState("");
-    const [newProfileImage, setNewProfileImage] = useState(null);
+    const [profileImage, setProfileImage] = useState<string>("");
+    const [newProfileImage, setNewProfileImage] = useState<string | null>(null);
 
-    // State for managing posts
-    const [posts, setPosts] = useState<{ type: string, content: string, author: string, profileImageUrl: string, timeAgo: string }[]>([]);
+    // Posts state
+    const [posts, setPosts] = useState<Post[]>([]);
     const [newPostContent, setNewPostContent] = useState("");
     const [newPostType, setNewPostType] = useState("text"); // Default post type is text
-    const [mediaFile, setMediaFile] = useState(null); // For image or video file
-    const [isPostEditing, setIsPostEditing] = useState<{ [key: number]: boolean }>({}); // Track post edit state
-    const [isOptionsVisible, setIsOptionsVisible] = useState<{ [key: number]: boolean }>({}); // Track options visibility
+    const [mediaFile, setMediaFile] = useState<File | null>(null);
+    const [isPostEditing, setIsPostEditing] = useState<{ [key: number]: boolean }>({});
+    const [isOptionsVisible, setIsOptionsVisible] = useState<{ [key: number]: boolean }>({});
 
     // Handle profile image change
-    const handleImageChange = (event: { target: { files: any[]; }; }) => {
-        const file = event.target.files[0];
+    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
         if (file) {
             const reader = new FileReader();
             reader.onloadend = () => {
-                setNewProfileImage(reader.result as any); // Update preview image
+                setNewProfileImage(reader.result as string);
             };
             reader.readAsDataURL(file);
         }
     };
 
-    // Handle profile saving
+    // Save profile changes
     const handleSaveProfile = () => {
         if (newProfileImage) {
-            setProfileImage(newProfileImage); // Update profile image
+            setProfileImage(newProfileImage);
         }
-        setIsEditing(false); // Close editing mode
+        setIsEditing(false);
     };
 
-    // Handle new post submission
+    // Add new post
     const handleAddPost = () => {
         let content = newPostContent.trim();
 
-        // If the post type is not text, set the content to the media file URL
         if (newPostType === "image" || newPostType === "video") {
             if (mediaFile) {
                 const reader = new FileReader();
@@ -56,9 +63,9 @@ function Profile() {
                         timeAgo: "Just now"
                     }]);
                     setNewPostContent("");
-                    setMediaFile(null); // Clear file input
+                    setMediaFile(null);
                 };
-                reader.readAsDataURL(mediaFile); // Convert the file to a data URL
+                reader.readAsDataURL(mediaFile);
             } else {
                 alert(`Please select a ${newPostType} file.`);
             }
@@ -70,60 +77,45 @@ function Profile() {
                     author: username,
                     profileImageUrl: profileImage || "default-avatar.png",
                     timeAgo: "Just now"
-                }]); // Add new text post
-                setNewPostContent(""); // Clear input
+                }]);
+                setNewPostContent("");
             } else {
                 alert("Post content cannot be empty!");
             }
         }
     };
 
-    // Handle footer icon click to add a default post
-    // const handleFooterIconClick = () => {
-    //     const defaultPost = "New post added from the footer!";
-    //     setPosts([...posts, {
-    //         type: "text",
-    //         content: defaultPost,
-    //         author: username,
-    //         profileImageUrl: profileImage || "default-avatar.png",
-    //         timeAgo: "Just now"
-    //     }]);
-    // };
-
-    // Handle file upload (image or video)
-    const handleFileChange = (event: { target: { files: any[]; }; }) => {
-        const file = event.target.files[0];
-        setMediaFile(file); // Store the selected file
+    // File upload handler
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        setMediaFile(file || null);
     };
 
-
-
-    // Handle post editing
+    // Post edit toggle
     const togglePostEdit = (index: number) => {
         setIsPostEditing({ ...isPostEditing, [index]: !isPostEditing[index] });
     };
 
-    // Handle save post edits
+    // Save post edit
     const handleSavePostEdit = (index: number) => {
-        togglePostEdit(index); // Save and exit editing mode
+        togglePostEdit(index);
     };
 
-    // Toggle options menu visibility
+    // Toggle post options visibility
     const toggleOptionsVisibility = (index: number) => {
         setIsOptionsVisible({ ...isOptionsVisible, [index]: !isOptionsVisible[index] });
     };
 
-    // Handle post deletion
+    // Delete a post
     const handleDeletePost = (index: number) => {
-        const updatedPosts = posts.filter((_, i) => i !== index);
-        setPosts(updatedPosts);
-        setIsOptionsVisible({ ...isOptionsVisible, [index]: false }); // Hide options after deletion
+        setPosts(posts.filter((_, i) => i !== index));
+        setIsOptionsVisible({ ...isOptionsVisible, [index]: false });
     };
 
     return (
         <div className="min-h-screen p-4 bg-gray-100">
-            {/* Header Section */}
-            <div className='bg-indigo-600 p-4 rounded-t-md shadow-md text-white flex items-center justify-between lg:mx-8 xl:mx-10 2xl:mx-16'>
+            {/* Header */}
+            <div className='bg-indigo-600 p-4 rounded-t-md shadow-md text-white flex items-center justify-between'>
                 <div className="flex items-center">
                     <PiNotificationLight size={24} />
                     <h1 className="text-xl font-bold ml-4">My Profile</h1>
@@ -132,16 +124,16 @@ function Profile() {
             </div>
 
             {/* Welcome Section */}
-            <div className='bg-indigo-600 p-4 shadow-md text-white lg:mx-8 xl:mx-10 2xl:mx-16'>
+            <div className='bg-indigo-600 p-4 shadow-md text-white'>
                 <h2 className='mt-6'>Welcome Back!</h2>
                 <h1 className='mb-4 mt-4 text-5xl font-sans'>
                     {username} <br />
                 </h1>
             </div>
 
-            {/* Profile Info Section */}
-            <div className='bg-white p-4 rounded-b-md shadow-md text-indigo-600 lg:mx-8 xl:mx-10 2xl:mx-16'>
-                {/* Profile Picture - Centered with grid */}
+            {/* Profile Section */}
+            <div className='bg-white p-4 rounded-b-md shadow-md text-indigo-600'>
+                {/* Profile Image */}
                 <div className="grid place-items-center">
                     <img
                         src={profileImage || "default-avatar.png"}
@@ -150,23 +142,23 @@ function Profile() {
                     />
                 </div>
 
-                {/* Stats Section */}
-                <div className="flex flex-row gap-4 items-center justify-center mt-6 space-x-4">
-                    <div className="bg-indigo-600 rounded-xl shadow-lg h-24 w-24 flex flex-col justify-center items-center text-white animate-stats">
+                {/* Stats */}
+                <div className="flex justify-center mt-6 space-x-4">
+                    <div className="bg-indigo-600 rounded-xl h-24 w-24 flex flex-col justify-center items-center text-white">
                         <h3 className="text-2xl font-bold">{posts.length}</h3>
                         <span>Posts</span>
                     </div>
-                    <div className="bg-indigo-600 rounded-xl shadow-lg h-24 w-24 flex flex-col justify-center items-center text-white animate-stats">
+                    <div className="bg-indigo-600 rounded-xl h-24 w-24 flex flex-col justify-center items-center text-white">
                         <h3 className="text-2xl font-bold">9M</h3>
                         <span>Followers</span>
                     </div>
-                    <div className="bg-indigo-600 rounded-xl shadow-lg h-24 w-24 flex flex-col justify-center items-center text-white animate-stats">
+                    <div className="bg-indigo-600 rounded-xl h-24 w-24 flex flex-col justify-center items-center text-white">
                         <h3 className="text-2xl font-bold">38</h3>
                         <span>Following</span>
                     </div>
                 </div>
 
-                {/* Edit Profile Section */}
+                {/* Edit Profile */}
                 {isEditing ? (
                     <div className="mt-4">
                         <input
@@ -194,14 +186,12 @@ function Profile() {
                         onClick={() => setIsEditing(true)}
                         className="bg-indigo-600 text-white p-2 rounded w-[100px] mt-4"
                     >
-                        {/* <BiSolidEditAlt /> */}
                         Edit Profile
                     </button>
                 )}
 
-                {/* Add Post Section */}
+                {/* New Post Section */}
                 <div className="mt-8">
-                    {/* Post Type Selection */}
                     <select
                         value={newPostType}
                         onChange={(e) => setNewPostType(e.target.value)}
@@ -212,7 +202,6 @@ function Profile() {
                         <option value="video">Video</option>
                     </select>
 
-                    {/* Post Content or Media Upload */}
                     {newPostType === "text" ? (
                         <textarea
                             value={newPostContent}
@@ -229,17 +218,15 @@ function Profile() {
                         />
                     )}
 
-                    {/* Add Post Button */}
                     <button
                         onClick={handleAddPost}
                         className="bg-indigo-600 text-white p-2 rounded w-[100px]"
                     >
-                        {/* <FaPlus className="inline-block" />  */}
                         Add Post
                     </button>
                 </div>
 
-                {/* Posts Section */}
+                {/* Post List */}
                 <div className="mt-8 flex flex-col">
                     {posts.map((post, index) => (
                         <div key={index} className="border-b mb-4 pb-4">
@@ -257,28 +244,47 @@ function Profile() {
                                                 <FaEllipsisH />
                                             </button>
                                             {isOptionsVisible[index] && (
-                                                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
-                                                    <ul>
-                                                        <li className="p-2 hover:bg-indigo-100 cursor-pointer" onClick={() => togglePostEdit(index)}>Edit Post</li>
-                                                        {/* <li className="p-2 hover:bg-indigo-100 cursor-pointer" onClick={() => handleAddPost()}>Add Post</li> */}
-                                                        <li className="p-2 hover:bg-indigo-100 cursor-pointer" onClick={() => handleDeletePost(index)}>Delete Post</li>
-                                                    </ul>
+                                                <div className="absolute right-0 bg-white shadow-lg rounded p-2">
+                                                    <button onClick={() => togglePostEdit(index)} className="block w-full text-left">Edit</button>
+                                                    <button onClick={() => handleDeletePost(index)} className="block w-full text-left text-red-600">Delete</button>
                                                 </div>
                                             )}
                                         </div>
                                     </div>
-                                    <span className="text-gray-500 text-sm">{post.timeAgo}</span>
+                                    <span className="text-gray-500">{post.timeAgo}</span>
                                 </div>
                             </div>
-                            {post.type === "text" ? (
+                            {isPostEditing[index] ? (
+                                <div>
+                                    <textarea
+                                        value={post.content}
+                                        onChange={(e) => {
+                                            const updatedPosts = [...posts];
+                                            updatedPosts[index].content = e.target.value;
+                                            setPosts(updatedPosts);
+                                        }}
+                                        className="border p-2 rounded w-full mt-2"
+                                    />
+                                    <button
+                                        onClick={() => handleSavePostEdit(index)}
+                                        className="bg-indigo-600 text-white p-2 rounded mt-2"
+                                    >
+                                        Save
+                                    </button>
+                                </div>
+                            ) : post.type === "text" ? (
                                 <p className="mt-2">{post.content}</p>
-                            ) : (
-                                <img src={post.content} alt={post.type} className="mt-2 w-[500px] md:w-auto mx-auto object-cover h-[600px]" />
-                            )}
+                            ) : post.type === "image" ? (
+                                <img src={post.content} alt="Post" className="mt-2 max-w-full" />
+                            ) : post.type === "video" ? (
+                                <video controls className="mt-2 max-w-full">
+                                    <source src={post.content} type="video/mp4" />
+                                    Your browser does not support the video tag.
+                                </video>
+                            ) : null}
                         </div>
                     ))}
                 </div>
-
             </div>
         </div>
     );
