@@ -1,10 +1,16 @@
-'use client'
+'use client';
 import React, { useState } from 'react';
 import { PiNotificationLight } from 'react-icons/pi';
 import { TbGridDots } from 'react-icons/tb';
 import Image from 'next/image';
+
+// Define a type for follow statuses
+type FollowStatus = {
+  [user: string]: 'follow' | 'following' | 'follow back'; // Define possible values
+};
+
 function Notification() {
-  const [followStatus, setFollowStatus] = useState({
+  const [followStatus, setFollowStatus] = useState<FollowStatus>({
     emilie: 'follow',
     john: 'following',
     sarah: 'follow back',
@@ -18,7 +24,7 @@ function Notification() {
   });
 
   const handleFollow = (user: string) => {
-    setFollowStatus((prevState:any) => {
+    setFollowStatus((prevState) => {
       const currentStatus = prevState[user];
       if (currentStatus === 'follow') {
         return { ...prevState, [user]: 'following' };
@@ -29,7 +35,6 @@ function Notification() {
       }
     });
   };
-
 
   return (
     <div className="min-h-screen bg-gray-100 p-4">
