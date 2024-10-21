@@ -52,6 +52,7 @@ const nextConfig = {
       "cdn.outsideonline.com",
       "www.thescramble.com" ,
       "capital-placement.com",
+      
     ], // Specify allowed image domains
   },
 };
