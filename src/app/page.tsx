@@ -205,13 +205,13 @@ function Home() {
 
         {/* Clickable Links for Recent and Most Popular Posts as Headings */}
         <div className="flex flex-wrap justify-center space-x-4 mt-4">
-          <Link href="/recent-posts">
+          <Link href="/">
             <h2 className="text-gray-900 text-lg font-semibold cursor-pointer relative group">
               Recent Post
               <span className="absolute left-0 -bottom-1 h-[5px] w-full bg-indigo-600 scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></span>
             </h2>
           </Link>
-          <Link href="/most-popular">
+          <Link href="/">
             <h2 className="text-gray-900 text-lg font-semibold cursor-pointer relative group">
               Most Popular
               <span className="absolute left-0 -bottom-1 h-[5px] w-full bg-indigo-600 scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></span>
