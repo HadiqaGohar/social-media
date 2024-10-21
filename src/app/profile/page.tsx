@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { PiNotificationLight } from 'react-icons/pi';
 import { TbGridDots } from 'react-icons/tb';
-import { FaPlus, FaEllipsisH } from 'react-icons/fa';
+import { FaEllipsisH } from 'react-icons/fa';
 import Image from 'next/image';
 
 // Ensure the path is correct based on your project structure
@@ -47,7 +47,7 @@ function Profile() {
     };
 
     const handleAddPost = () => {
-        let content = newPostContent.trim();
+        const content = newPostContent.trim();
 
         if (newPostType === "image" || newPostType === "video") {
             if (mediaFile) {
@@ -238,19 +238,38 @@ function Profile() {
                                             )}
                                         </div>
                                     </div>
-                                    <span className="text-gray-500 text-sm">{post.timeAgo}</span>
+                                    <span className="text-sm text-gray-500">{post.timeAgo}</span>
                                 </div>
                             </div>
                             {post.type === "text" ? (
-                                <p>{post.content}</p>
+                                <p className="mt-2">{post.content}</p>
                             ) : (
                                 <Image
                                     src={post.content}
-                                    alt="Post"
-                                    className="mt-2 max-w-full"
-                                    width={100}
-                                    height={100}
+                                    alt="Post media"
+                                    className="mt-2 rounded"
+                                    height={500} width={500}
                                 />
+                            )}
+
+                            {isPostEditing[index] && (
+                                <div className="mt-4">
+                                    <textarea
+                                        value={post.content}
+                                        onChange={(e) => {
+                                            const updatedPosts = [...posts];
+                                            updatedPosts[index].content = e.target.value;
+                                            setPosts(updatedPosts);
+                                        }}
+                                        className="border p-2 rounded w-full mb-4"
+                                    />
+                                    <button
+                                        onClick={() => handleSavePostEdit(index)}
+                                        className="bg-indigo-600 text-white p-2 rounded w-full"
+                                    >
+                                        Save Post
+                                    </button>
+                                </div>
                             )}
                         </div>
                     ))}
