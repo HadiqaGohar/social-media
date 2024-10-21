@@ -1,9 +1,59 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    images: {
-      domains: ["res.cloudinary.com","img.freepik.com","media.istockphoto.com","i.pinimg.com","i1.pickpik.com","as1.ftcdn.net", "encrypted-tbn0.gstatic.com" , "www.styledbysally.com.au","images.pexels.com","images.pexels.com","thumbs.dreamstime.com", "thumbs.dreamstime.com","cdn.pixabay.com","images.unsplash.com","t4.ftcdn.net", "static.vecteezy.com" , "vastphotos.com" , "www.cpr.org" ,"images8.alphacoders.com","m.media-amazon.com" ,"media.springernature.com", "cdn.mos.cms.futurecdn.net" , "img.goodfon.com","img.goodfon.com","cdn.britannica.com", "s.rfi.fr" ,"s.rfi.fr"], // Specify allowed image domains
-    },
-  };
-  
-  export default nextConfig;
-  
+  images: {
+    domains: [
+      "upload.wikimedia.org", 
+      "imgv3.fotor.com", 
+      "t4.ftcdn.net", 
+      "media.istockphoto.com", 
+      "bahriatownlistings.com", 
+      "encrypted-tbn0.gstatic.com", 
+      "images.newscientist.com", 
+      "www.rossmorevethospital.com.au",
+      "img.freepik.com", 
+      "images.pexels.com", 
+      "images.unsplash.com", 
+      "images.squarespace-cdn.com", 
+      "www.bhg.com", 
+      "th-thumbnailer.cdn-si-edu.com", 
+      "media.springernature.com", 
+      "www.teledataict.com", 
+      "dp-pic.com", 
+      "nationaltoday.com",
+      "photoai.com",
+      "imgv3.fotor.com",
+      "res.cloudinary.com",
+      "img.freepik.com",
+      "media.istockphoto.com",
+      "i.pinimg.com",
+      "i1.pickpik.com",
+      "as1.ftcdn.net", 
+      "encrypted-tbn0.gstatic.com", 
+      "www.styledbysally.com.au",
+      "images.pexels.com",
+      "thumbs.dreamstime.com", 
+      "cdn.pixabay.com",
+      "images.unsplash.com",
+      "t4.ftcdn.net", 
+      "static.vecteezy.com", 
+      "vastphotos.com", 
+      "www.cpr.org",
+      "images8.alphacoders.com",
+      "m.media-amazon.com",
+      "media.springernature.com", 
+      "cdn.mos.cms.futurecdn.net", 
+      "img.goodfon.com",
+      "cdn.britannica.com", 
+      "s.rfi.fr",
+      "r2-us-west.photoai.com",
+      "image.tensorartassets.com" ,
+      "w0.peakpx.com",
+      "s3-eu-west-1.amazonaws.com",
+      "cdn.outsideonline.com",
+      "www.thescramble.com" ,
+      "capital-placement.com",
+    ], // Specify allowed image domains
+  },
+};
+
+export default nextConfig;

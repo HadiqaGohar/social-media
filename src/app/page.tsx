@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { PiNotificationLight } from "react-icons/pi";
 import { TbGridDots } from "react-icons/tb";
 import { TiHeart } from "react-icons/ti";
+import Image from 'next/image';
 
 function Home() {
   const [likes, setLikes] = useState([28, 34, 98, 115, 789, 34, 531, 276, 2985, 3240, 5421, 941, 198, 1372, 423, 2379, 678, 1917, 133, 624]); // Track likes for each post
@@ -189,9 +190,11 @@ function Home() {
           {posts.map((post, index) => (
             <div key={index} className="flex flex-col items-center">
               <div className="bg-green-500 rounded-full h-24 w-24 flex items-center justify-center">
-                <img
+                <Image
                   src={post.profileImageUrl}
                   className='rounded-full h-24 w-24'
+                  height={96}
+                  width={96}
                   alt={`Profile of ${post.author}`}
                 />
               </div>
@@ -216,36 +219,36 @@ function Home() {
           </Link>
         </div>
 
-        <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Posts</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {posts.map((post, index) => (
-          <div key={post.id} className="bg-white rounded-lg shadow-md p-4">
-            <div className="flex items-center mb-2">
-              <img src={post.profileImageUrl} alt={post.author} className="w-10 h-10 rounded-full mr-2" />
-              <div>
-                <h2 className="font-semibold">{post.author}</h2>
-                <p className="text-gray-500 text-sm">{post.timeAgo}</p>
+        <div className=" mt-6 p-4 bg-white flex flex-col gap-0 md:flex-row md:flex-wrap   rounded-lg shadow-md">
+          {posts.map((post, index) => (
+            <div key={index} className="flex flex-col mb-4 mx-auto">
+              <div className='flex flex-row items-center mb-2'>
+                <Image
+                  src={post.profileImageUrl}
+                  alt="Post Thumbnail"
+                  className="mr-2 h-[30px] w-[30px] rounded-full object-cover"
+                  height={30}
+                  width={30}
+                />
+                <h2 className='font-sans font-medium text-lg'>{post.author}</h2>
+                <p className="text-gray-500 ml-2">{post.timeAgo}</p>
+              </div>
+              <div className="mb-2 h-[200px] w-full max-w-[300px]">
+                <Image
+                  src={post.imageUrl}
+                  alt="Post Image"
+                  className="w-[300px] h-[200px] rounded-lg object-cover"
+                  height={200}
+                  width={300}
+                />
+              </div>
+              <div className="flex items-center mt-1">
+                <TiHeart onClick={() => handleLike(index)} size={24} className="cursor-pointer text-red-500" />
+                <span className="ml-2">{likes[index]}</span>
               </div>
             </div>
-            <img src={post.imageUrl} alt={`Post by ${post.author}`} className="w-full h-[400px] object-cover rounded-md mb-2" />
-            <div className="flex items-center justify-between">
-              <button onClick={() => handleLike(index)} className="flex items-center text-blue-600">
-                <TiHeart className="mr-1" />
-                <span>{likes[index]}</span>
-              </button>
-              {/* <Link href={`/posts/${post.id}`}>
-                <TbGridDots className="text-gray-600 hover:text-blue-600" />
-              </Link> */}
-            </div>
-          </div>
-        ))}
-      </div>
-      <footer className="mt-4 text-center">
-        <PiNotificationLight className="text-2xl" />
-        <p className="text-gray-500">Stay updated with new posts!</p>
-      </footer>
-    </div>
+          ))}
+        </div>
       </div>
     </div>
   );
