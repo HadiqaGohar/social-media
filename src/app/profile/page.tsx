@@ -2,7 +2,11 @@
 import React, { useState } from 'react';
 import { PiNotificationLight } from 'react-icons/pi';
 import { TbGridDots } from 'react-icons/tb';
-import { FaPlus, FaEllipsisH } from 'react-icons/fa'; // Icons for edit, save, etc.
+import { FaPlus, FaEllipsisH } from 'react-icons/fa';
+import Image from 'next/image';
+
+// Ensure the path is correct based on your project structure
+const DEFAULT_AVATAR = "/default-avatar.png"; // Update this path as needed
 
 interface Post {
     type: string;
@@ -13,21 +17,17 @@ interface Post {
 }
 
 function Profile() {
-    // Profile state
     const [isEditing, setIsEditing] = useState(false);
     const [username, setUsername] = useState("User Name");
-    const [profileImage, setProfileImage] = useState<string>("");
+    const [profileImage, setProfileImage] = useState<string>(DEFAULT_AVATAR);
     const [newProfileImage, setNewProfileImage] = useState<string | null>(null);
-
-    // Posts state
     const [posts, setPosts] = useState<Post[]>([]);
     const [newPostContent, setNewPostContent] = useState("");
-    const [newPostType, setNewPostType] = useState("text"); // Default post type is text
+    const [newPostType, setNewPostType] = useState("text");
     const [mediaFile, setMediaFile] = useState<File | null>(null);
     const [isPostEditing, setIsPostEditing] = useState<{ [key: number]: boolean }>({});
     const [isOptionsVisible, setIsOptionsVisible] = useState<{ [key: number]: boolean }>({});
 
-    // Handle profile image change
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (file) {
@@ -39,7 +39,6 @@ function Profile() {
         }
     };
 
-    // Save profile changes
     const handleSaveProfile = () => {
         if (newProfileImage) {
             setProfileImage(newProfileImage);
@@ -47,7 +46,6 @@ function Profile() {
         setIsEditing(false);
     };
 
-    // Add new post
     const handleAddPost = () => {
         let content = newPostContent.trim();
 
@@ -59,7 +57,7 @@ function Profile() {
                         type: newPostType,
                         content: reader.result as string,
                         author: username,
-                        profileImageUrl: profileImage || "default-avatar.png",
+                        profileImageUrl: profileImage,
                         timeAgo: "Just now"
                     }]);
                     setNewPostContent("");
@@ -75,7 +73,7 @@ function Profile() {
                     type: "text",
                     content,
                     author: username,
-                    profileImageUrl: profileImage || "default-avatar.png",
+                    profileImageUrl: profileImage,
                     timeAgo: "Just now"
                 }]);
                 setNewPostContent("");
@@ -85,28 +83,23 @@ function Profile() {
         }
     };
 
-    // File upload handler
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         setMediaFile(file || null);
     };
 
-    // Post edit toggle
     const togglePostEdit = (index: number) => {
         setIsPostEditing({ ...isPostEditing, [index]: !isPostEditing[index] });
     };
 
-    // Save post edit
     const handleSavePostEdit = (index: number) => {
         togglePostEdit(index);
     };
 
-    // Toggle post options visibility
     const toggleOptionsVisibility = (index: number) => {
         setIsOptionsVisible({ ...isOptionsVisible, [index]: !isOptionsVisible[index] });
     };
 
-    // Delete a post
     const handleDeletePost = (index: number) => {
         setPosts(posts.filter((_, i) => i !== index));
         setIsOptionsVisible({ ...isOptionsVisible, [index]: false });
@@ -114,7 +107,6 @@ function Profile() {
 
     return (
         <div className="min-h-screen p-4 bg-gray-100">
-            {/* Header */}
             <div className='bg-indigo-600 p-4 rounded-t-md shadow-md text-white flex items-center justify-between'>
                 <div className="flex items-center">
                     <PiNotificationLight size={24} />
@@ -123,7 +115,6 @@ function Profile() {
                 <TbGridDots size={24} />
             </div>
 
-            {/* Welcome Section */}
             <div className='bg-indigo-600 p-4 shadow-md text-white'>
                 <h2 className='mt-6'>Welcome Back!</h2>
                 <h1 className='mb-4 mt-4 text-5xl font-sans'>
@@ -131,18 +122,16 @@ function Profile() {
                 </h1>
             </div>
 
-            {/* Profile Section */}
             <div className='bg-white p-4 rounded-b-md shadow-md text-indigo-600'>
-                {/* Profile Image */}
                 <div className="grid place-items-center">
-                    <img
-                        src={profileImage || "default-avatar.png"}
+                    <Image
+                        src={profileImage}
                         alt="Profile Picture"
                         className='rounded-full bg-blue-600 h-[200px] w-[200px]'
+                        height={200} width={200}
                     />
                 </div>
 
-                {/* Stats */}
                 <div className="flex justify-center mt-6 space-x-4">
                     <div className="bg-indigo-600 rounded-xl h-24 w-24 flex flex-col justify-center items-center text-white">
                         <h3 className="text-2xl font-bold">{posts.length}</h3>
@@ -158,7 +147,6 @@ function Profile() {
                     </div>
                 </div>
 
-                {/* Edit Profile */}
                 {isEditing ? (
                     <div className="mt-4">
                         <input
@@ -190,7 +178,6 @@ function Profile() {
                     </button>
                 )}
 
-                {/* New Post Section */}
                 <div className="mt-8">
                     <select
                         value={newPostType}
@@ -226,15 +213,15 @@ function Profile() {
                     </button>
                 </div>
 
-                {/* Post List */}
                 <div className="mt-8 flex flex-col">
                     {posts.map((post, index) => (
                         <div key={index} className="border-b mb-4 pb-4">
                             <div className="flex items-center">
-                                <img
-                                    src={post.profileImageUrl || "default-avatar.png"}
+                                <Image
+                                    src={post.profileImageUrl || DEFAULT_AVATAR}
                                     alt="Profile"
                                     className="rounded-full h-10 w-10 mr-2"
+                                    height={40} width={40}
                                 />
                                 <div className="flex-1">
                                     <div className="flex justify-between items-center">
@@ -251,37 +238,20 @@ function Profile() {
                                             )}
                                         </div>
                                     </div>
-                                    <span className="text-gray-500">{post.timeAgo}</span>
+                                    <span className="text-gray-500 text-sm">{post.timeAgo}</span>
                                 </div>
                             </div>
-                            {isPostEditing[index] ? (
-                                <div>
-                                    <textarea
-                                        value={post.content}
-                                        onChange={(e) => {
-                                            const updatedPosts = [...posts];
-                                            updatedPosts[index].content = e.target.value;
-                                            setPosts(updatedPosts);
-                                        }}
-                                        className="border p-2 rounded w-full mt-2"
-                                    />
-                                    <button
-                                        onClick={() => handleSavePostEdit(index)}
-                                        className="bg-indigo-600 text-white p-2 rounded mt-2"
-                                    >
-                                        Save
-                                    </button>
-                                </div>
-                            ) : post.type === "text" ? (
-                                <p className="mt-2">{post.content}</p>
-                            ) : post.type === "image" ? (
-                                <img src={post.content} alt="Post" className="mt-2 max-w-full" />
-                            ) : post.type === "video" ? (
-                                <video controls className="mt-2 max-w-full">
-                                    <source src={post.content} type="video/mp4" />
-                                    Your browser does not support the video tag.
-                                </video>
-                            ) : null}
+                            {post.type === "text" ? (
+                                <p>{post.content}</p>
+                            ) : (
+                                <Image
+                                    src={post.content}
+                                    alt="Post"
+                                    className="mt-2 max-w-full"
+                                    width={100}
+                                    height={100}
+                                />
+                            )}
                         </div>
                     ))}
                 </div>

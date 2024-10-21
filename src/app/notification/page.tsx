@@ -86,7 +86,7 @@ function Notification() {
               />
               <div>
                 <h1 className="font-medium">John <span className="text-sm">commented on</span></h1>
-                <p>your post: "Great job!" <span>2d</span></p>
+                <p>your post: &quot;Great job!&quot; <span>2d</span></p>
               </div>
             </div>
             <button
@@ -254,7 +254,7 @@ function Notification() {
               />
               <div>
                 <h1 className="font-medium">Ben <span className="text-sm">commented on</span></h1>
-                <p>your post: "Great job!" <span>2d</span></p>
+                <p>your post: &quot;Nice Dp!&quot; <span>2d</span></p>
               </div>
             </div>
             <button
